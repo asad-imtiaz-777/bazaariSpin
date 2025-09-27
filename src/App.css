@@ -5,6 +5,12 @@
   padding: 2rem;
   text-align: center;
 }
+body, html, #root {
+  background-color: #fff !important;
+  color: #333 !important;
+  transition: none !important;
+  -webkit-text-fill-color: #333 !important; /* for iOS Safari */
+}
 .app-container {
   background-color: #fff;
   border-radius: 12px;
@@ -45,6 +51,8 @@ button.primary-btn {
 
 button.primary-btn:hover {
   background-color: #0056b3;
+  color: white;
+
 }
 
 button.primary-btn:disabled {
@@ -85,6 +93,7 @@ input[type="file"] {
 
 .spin-button:not(:disabled):hover {
   background-color: #1e7e34;
+  color: white;
 }
 
 .wheel-wrapper {
@@ -151,6 +160,7 @@ input[type="file"] {
 
 .popup-close-btn:hover {
   background-color: #0056b3;
+  color: white;
 }
 
 /* Responsive */

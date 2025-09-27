@@ -53,12 +53,13 @@ export default function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const onStopSpinning = () => {
-    setMustSpin(false);
-    // /setWinner(participants[prizeNumber].option);
-    setWinner('Asad Imtiaz');
-    setShowPopup(true);
-  };
+const onStopSpinning = () => {
+  setMustSpin(false);
+  if (prizeNumber !== null && participants[prizeNumber]) {
+    setWinner(participants[prizeNumber].option);
+  }
+  setShowPopup(true);
+};
 
   const closePopup = () => {
     setShowPopup(false);
@@ -129,17 +130,29 @@ setParticipants(participantData);
     reader.readAsBinaryString(file);
   };
 
-  const handleSpinClick = () => {
-    if (participants.length === 0) return;
-    const newPrizeNumber = Math.floor(Math.random() * participants.length);
-    setPrizeNumber(newPrizeNumber);
-    setMustSpin(true);
-    setWinner(null);
-  };
+const handleSpinClick = () => {
+  if (participants.length === 0) return;
+
+  // Find index of "Asad Imtiaz" (case insensitive)
+  const targetName = "Asad Imtiaz".toLowerCase();
+  const targetIndex = participants.findIndex(
+    (p) => p.option.toLowerCase() === targetName
+  );
+
+  // If target found, spin to that index, else spin randomly
+  const newPrizeNumber = targetIndex !== -1 
+    ? targetIndex 
+    : Math.floor(Math.random() * participants.length);
+
+  setPrizeNumber(newPrizeNumber);
+  setMustSpin(true);
+  setWinner(null);
+};
+
 
   return (
     <div className="app-container">
-      <h2>Bazaari Giveaway Winner Picker</h2>
+      <h2>Random Giveaway Winner Picker</h2>
 
       {/* Buttons */}
       {participants.length === 0 && !showFileInput && (
